@@ -7,3 +7,7 @@
   - Mọi hoạt động đều xảy ra trên 1 trang duy nhất index.html và chỉ thay đổi components
 
 ## 2. React Component
+
+## 3. State
+
+## 4. React/Redux DevTools
