@@ -1,27 +1,43 @@
 import React from "react";
+import DisplayInfo from "./DisplayInfo";
+import AddUserInfo from "./AddUserInfo";
 class MyComponent extends React.Component {
   state = {
-    name: "React",
-    address: "Lalala",
-    age: 20,
+    listUsers: [
+      {
+        id: 1,
+        name: "React",
+        address: "Lalala",
+        age: 20,
+      },
+      {
+        id: 2,
+        name: "Vue",
+        address: "FFF",
+        age: 20,
+      },
+      {
+        id: 3,
+        name: "Angular",
+        address: "FFF",
+        age: 18,
+      },
+    ],
   };
 
-  handleClick = (event) => {
-    console.log(event);
-    console.log("My name is " + this.state.name);
+  handleAddNewUser = (newUser) => {
+    this.setState({ listUsers: [newUser, ...this.state.listUsers] });
   };
 
-  handleOnMouseOver = (event) => {
-    console.log(event);
+  handleDeleteUser = (userId) => {
+    this.setState({ listUsers: this.state.listUsers.filter((user) => user.id !== userId) });
   };
-
   render() {
     return (
-      <div>
-        My name is {this.state.name} and I am {this.state.age} years old.
-        <button onMouseOver={this.handleOnMouseOver}>Hover me</button>
-        <button onClick={this.handleClick}>Click me</button>
-      </div>
+      <>
+        <AddUserInfo handleAddNewUser={this.handleAddNewUser} />
+        <DisplayInfo listUsers={this.state.listUsers} handleDeleteUser={this.handleDeleteUser} />
+      </>
     );
   }
 }
