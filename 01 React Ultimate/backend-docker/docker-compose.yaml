@@ -1,0 +1,46 @@
+# docker-compose -p app_backend up --build
+
+version: '3.8'
+
+services:
+  postgres_db:
+    image: postgres:14
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - POSTGRES_PASSWORD=$DB_PASSWORD
+      - POSTGRES_USER=$DB_USERNAME
+      - POSTGRES_DB=$DB_DATABASE_NAME
+    ports:
+      - $DB_POSTGRES_PORT:$DB_POSTGRES_PORT
+    command: -p $DB_POSTGRES_PORT
+    expose:
+      - $DB_POSTGRES_PORT # Publishes 5433 to other containers but NOT to host machine
+    volumes:
+      - db:/var/lib/postgres
+  backend_nodejs:
+    depends_on:
+      - postgres_db
+    image: harypham97/hoidanit-c0x37a2662-v2:1.0
+    restart: unless-stopped
+    volumes:
+      - /express-app/node_modules
+    env_file: .env
+    ports:
+      - $PORT:$PORT
+    environment:
+      - PORT=$PORT
+      - ALLOW_ORIGINS=$ALLOW_ORIGINS
+      - API_SSO_VERIFY_ACCESS_TOKEN=$API_SSO_VERIFY_ACCESS_TOKEN
+      - DB_HOST=postgres_db
+      - DB_DATABASE_NAME=$DB_DATABASE_NAME
+      - DB_USERNAME=$DB_USERNAME
+      - DB_POSTGRES_PORT=$DB_POSTGRES_PORT
+      - DB_PASSWORD=$DB_PASSWORD
+      - DB_DIALECT=$DB_DIALECT
+      - DB_SSL=$DB_SSL
+    stdin_open: true
+    tty: true
+
+volumes:
+  db:
