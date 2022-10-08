@@ -11,3 +11,11 @@
 ## 3. State
 
 ## 4. React/Redux DevTools
+
+## 5. React Router
+
+- `BrowserRouter`
+- `Routes`
+- `Route`
+- `Link`, `NavLink`
+- `Outlet`

@@ -1,4 +1,73 @@
-.logo {
-  width: 400px;
-  height: 400px;
+@import url("https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&display=swap");
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Cabin", sans-serif;
+  font-size: 18px;
+}
+
+.app-container {
+  .header-container {
+    z-index: 10;
+
+    .navbar-nav {
+      .nav-link {
+        &.active {
+          color: #90b498;
+        }
+      }
+    }
+
+    .bg-light {
+      background-color: transparent !important;
+    }
+  }
+}
+
+.homepage-container {
+  video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: -1;
+    transform: translateY(-5vw);
+  }
+}
+
+.homepage-content {
+  padding: 160px 80px;
+  max-width: 50%;
+
+  h1 {
+    font-size: 64px;
+    margin-bottom: 24px;
+  }
+
+  p {
+    font-size: 24px;
+    line-height: 1.3;
+    margin-bottom: 30px;
+  }
+
+  .btn-mi-primary {
+    font-size: 20px;
+  }
+}
+
+.btn-mi-secondary {
+  background-color: transparent;
+  border: 1px solid #262627;
+  border-radius: 4px;
+  margin-right: 16px;
+  padding: 8px 16px;
+}
+
+.btn-mi-primary {
+  color: #fff;
+  background-color: #262627;
+  border-radius: 4px;
+  margin-right: 16px;
+  padding: 8px 16px;
 }
