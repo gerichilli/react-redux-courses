@@ -2,9 +2,19 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Header() {
+  let navigate = useNavigate();
+
+  function handleLogin() {
+    navigate("/login", { replace: true });
+  }
+
+  function handleRegister() {
+    navigate("/register", { replace: true });
+  }
+
   return (
     <Navbar bg="light" expand="lg" className="py-4">
       <Container>
@@ -25,13 +35,17 @@ function Header() {
             </NavLink>
           </Nav>
           <Nav>
-            <button className="btn btn-mi-secondary">Log in</button>
-            <button className="btn btn-mi-primary">Sign up</button>
-            <NavDropdown title="Setting" id="basic-nav-dropdown">
+            <button className="btn btn-mi-secondary" onClick={handleLogin}>
+              Log in
+            </button>
+            <button className="btn btn-mi-primary" onClick={handleRegister}>
+              Sign up
+            </button>
+            {/* <NavDropdown title="Setting" id="basic-nav-dropdown">
               <NavDropdown.Item>Login</NavDropdown.Item>
               <NavDropdown.Item>Logout</NavDropdown.Item>
               <NavDropdown.Item>Profile</NavDropdown.Item>
-            </NavDropdown>
+            </NavDropdown> */}
           </Nav>
         </Navbar.Collapse>
       </Container>

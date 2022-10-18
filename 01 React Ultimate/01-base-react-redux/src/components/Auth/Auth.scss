@@ -1,0 +1,14 @@
+.auth-container {
+  max-width: 360px;
+  margin: 0 auto;
+  padding: 100px 20px;
+}
+
+.password-button {
+  background: transparent;
+  border: none;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}

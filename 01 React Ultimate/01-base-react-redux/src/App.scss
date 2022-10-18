@@ -14,7 +14,7 @@ body {
     .navbar-nav {
       .nav-link {
         &.active {
-          color: #90b498;
+          color: var(--bs-link-hover-color);
         }
       }
     }
