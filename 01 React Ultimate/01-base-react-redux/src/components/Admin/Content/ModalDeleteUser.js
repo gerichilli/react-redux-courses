@@ -2,7 +2,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import _ from "lodash";
 import { toast } from "react-toastify";
-import { deleteUser } from "../../services/apiServices";
+import { deleteUser } from "../../../services/apiServices";
 
 function ModalDeleteUser({
   show,

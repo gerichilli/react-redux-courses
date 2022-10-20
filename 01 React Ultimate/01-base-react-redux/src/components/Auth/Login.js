@@ -1,25 +1,35 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { postLogin } from "../services/apiServices";
-import { toast } from "react-toastify";
 import "./Auth.scss";
+import { useNavigate } from "react-router-dom";
+import { postLogin } from "../../services/apiServices";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { doLogin } from "../../redux/action/userAction";
+import { FaSpinner } from "react-icons/fa";
 
 function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   async function handleLogin(e) {
     e.preventDefault();
     // validate
 
     // submit
+    setIsLoading(true);
     const res = await postLogin(email, password);
-    if (res.DT && res.EC === 0) {
+    if (res.DT && +res.EC === 0) {
+      dispatch(doLogin(res));
       toast.success(res.EM);
+      setIsLoading(false);
       handleBackHome();
     } else {
       toast.error(res.EM);
+      setIsLoading(false);
     }
   }
 
@@ -64,8 +74,9 @@ function Login(props) {
           />
           <p className="text-secondary fs-6 mt-1">Forgot password?</p>
         </div>
-        <button type="submit" className="btn btn-primary w-100">
-          Log in to Quiz
+        <button type="submit" className="btn btn-primary w-100" disabled={isLoading}>
+          {isLoading && <FaSpinner className="loading me-2" />}
+          <span>Log in to Quiz</span>
         </button>
         <div className="text-center mt-4">
           <span className="fs-6 me-2 text-secondary">Don't have an account yet?</span>

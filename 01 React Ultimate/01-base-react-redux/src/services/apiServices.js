@@ -34,9 +34,13 @@ export async function getUsersWithPaginate(page, limit) {
 }
 
 export async function postLogin(email, password) {
-  return axios.post("api/v1/login", { email, password });
+  return axios.post("api/v1/login", { email, password, delay: 3000 });
 }
 
 export async function postRegister(email, username, password) {
   return axios.post("api/v1/register", { email, username, password });
+}
+
+export async function getQuizByUser() {
+  return axios.get(`api/v1/quiz-by-participant`);
 }

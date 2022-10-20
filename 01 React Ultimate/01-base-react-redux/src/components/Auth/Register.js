@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { postRegister } from "../services/apiServices";
-import { validateEmail } from "../utils/validate";
+import { postRegister } from "../../services/apiServices";
+import { validateEmail } from "../../utils/validate";
 import { toast } from "react-toastify";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import "./Auth.scss";

@@ -3,8 +3,8 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/esm/Button";
 import { FiUpload } from "react-icons/fi";
 import { toast } from "react-toastify";
-import { postCreateNewUser } from "../../services/apiServices";
-import { validateEmail } from "../../utils/validate";
+import { postCreateNewUser } from "../../../services/apiServices";
+import { validateEmail } from "../../../utils/validate";
 
 function ModalCreateUser({ show, setShow, setCurrentPage, fetchListUsers }) {
   const [email, setEmail] = useState("");

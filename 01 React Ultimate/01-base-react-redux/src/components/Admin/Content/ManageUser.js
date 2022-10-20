@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./ManageUser.scss";
 import ModalCreateUser from "./ModalCreateUser";
 import { AiOutlineUserAdd } from "react-icons/ai";
-import { getAllUsers, getUsersWithPaginate } from "../../services/apiServices";
+import { getAllUsers, getUsersWithPaginate } from "../../../services/apiServices";
 import TableUser from "./TableUser";
 import TableUserPaginate from "./TableUserPaginate";
 import ModalUpdateUser from "./ModalUpdateUser";

@@ -1,8 +1,9 @@
+import ListQuiz from "./ListQuiz";
+
 function User(props) {
   return (
     <div>
-      User Component
-      <div></div>
+      <ListQuiz />
     </div>
   );
 }

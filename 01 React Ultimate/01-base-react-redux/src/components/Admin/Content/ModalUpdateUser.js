@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/esm/Button";
 import { FiUpload } from "react-icons/fi";
 import { toast } from "react-toastify";
-import { putUpdateUser } from "../../services/apiServices";
+import { putUpdateUser } from "../../../services/apiServices";
 import _ from "lodash";
 
 function ModalUpdateUser({
