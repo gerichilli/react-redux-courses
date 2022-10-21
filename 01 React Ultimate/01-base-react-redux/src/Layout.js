@@ -8,6 +8,13 @@ import ManageUser from "./components/Admin/Content/ManageUser";
 import DashBoard from "./components/Admin/Content/DashBoard";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
+import DetailQuiz from "./components/User/DetailQuiz";
+
+function NotFound() {
+  return (
+    <div className="container my-5 alert alert-danger">Not found data with your current URL</div>
+  );
+}
 
 function Layout() {
   return (
@@ -16,6 +23,7 @@ function Layout() {
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
           <Route path="/users" element={<User />} />
+          <Route path="/quiz/:id" element={<DetailQuiz />} />
         </Route>
         <Route path="/admin" element={<Admin />}>
           <Route index element={<DashBoard />} />
@@ -23,6 +31,7 @@ function Layout() {
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <ToastContainer
         position="top-right"

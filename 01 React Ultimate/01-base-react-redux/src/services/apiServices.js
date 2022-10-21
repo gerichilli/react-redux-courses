@@ -44,3 +44,11 @@ export async function postRegister(email, username, password) {
 export async function getQuizByUser() {
   return axios.get(`api/v1/quiz-by-participant`);
 }
+
+export async function getDataQuizById(id) {
+  return axios.get(`api/v1/questions-by-quiz?quizId=${id}`);
+}
+
+export async function postSubmitQuiz(data) {
+  return axios.post("api/v1/quiz-submit", { ...data });
+}
