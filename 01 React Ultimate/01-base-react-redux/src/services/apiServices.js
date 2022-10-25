@@ -52,3 +52,61 @@ export async function getDataQuizById(id) {
 export async function postSubmitQuiz(data) {
   return axios.post("api/v1/quiz-submit", { ...data });
 }
+
+export async function postCreateNewQuiz(name, description, difficulty, image) {
+  const data = new FormData();
+  data.append("description", description);
+  data.append("name", name);
+  data.append("difficulty", difficulty);
+  data.append("quizImage", image);
+
+  return axios.post("api/v1/quiz", data);
+}
+
+export async function getAllQuizForAdmin() {
+  return axios.get("api/v1/quiz/all");
+}
+
+export async function putUpdateQuiz(id, name, description, difficulty, image) {
+  const data = new FormData();
+  data.append("id", id);
+  data.append("description", description);
+  data.append("name", name);
+  data.append("difficulty", difficulty);
+  data.append("quizImage", image);
+
+  return axios.put("api/v1/quiz", data);
+}
+
+export async function deleteQuiz(quizId) {
+  return axios.delete(`api/v1/quiz/${quizId}`);
+}
+
+export async function postCreateNewQuestion(quizId, description, questionImage) {
+  const data = new FormData();
+  data.append("quiz_id", quizId);
+  data.append("description", description);
+  data.append("questionImage", questionImage);
+
+  return axios.post("api/v1/question", data);
+}
+
+export async function postCreateNewAnswer(description, correct_answer, question_id) {
+  return axios.post("api/v1/answer", {
+    description,
+    correct_answer,
+    question_id,
+  });
+}
+
+export async function getQuizQuestionsAndAnswers(quizId) {
+  return axios.get(`api/v1/quiz-with-qa/${quizId}`);
+}
+
+export async function postAssignQuizToUser(quizId, userId) {
+  return axios.post("api/v1/quiz-assign-to-user", { quizId, userId });
+}
+
+export async function postUpsertQA(data) {
+  return axios.post("api/v1/quiz-upsert-qa", { ...data });
+}

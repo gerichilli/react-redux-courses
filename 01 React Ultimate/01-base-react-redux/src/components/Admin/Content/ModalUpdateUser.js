@@ -10,7 +10,7 @@ function ModalUpdateUser({
   show,
   setShow,
   dataUpdate,
-  resetUpdateData,
+  setDataUpdate,
   currentPage,
   fetchListUsers,
 }) {
@@ -35,10 +35,6 @@ function ModalUpdateUser({
     }
   }, [dataUpdate]);
 
-  function handleCloseModal() {
-    setShow(false);
-  }
-
   async function handleSubmit(event) {
     event.preventDefault();
 
@@ -53,16 +49,16 @@ function ModalUpdateUser({
 
     if (res && res.EC === 0) {
       toast.success(res.EM);
-      handleClose();
+      handleCloseModal();
       await fetchListUsers(currentPage);
     } else {
       toast.error(res.EM);
     }
   }
 
-  function handleClose() {
-    handleCloseModal();
-    resetUpdateData();
+  function handleCloseModal() {
+    setShow(false);
+    setDataUpdate({});
   }
 
   function handleInputChange(event) {

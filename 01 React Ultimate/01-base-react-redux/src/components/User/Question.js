@@ -1,7 +1,11 @@
+import { useState } from "react";
 import _ from "lodash";
 import "./DetailQuiz.scss";
+import { Lightbox } from "react-modal-image";
 
 function Question({ index, data, handleCheckbox }) {
+  const [showLightbox, setShowLightbox] = useState(false);
+
   if (_.isEmpty(data)) return null;
 
   function handleClickCheckbox(event, answerId) {
@@ -12,7 +16,22 @@ function Question({ index, data, handleCheckbox }) {
     <>
       <div className="d-flex justify-content-center quiz-image mx-auto">
         {data.image && (
-          <img src={`data:image/jpeg;base64,${data.image}`} alt="" className="img-fluid" />
+          <>
+            <img
+              src={`data:image/jpeg;base64,${data.image}`}
+              alt=""
+              className="img-fluid"
+              onClick={() => setShowLightbox(true)}
+            />
+            {showLightbox && (
+              <Lightbox
+                medium={`data:image/jpeg;base64,${data.image}`}
+                large={`data:image/jpeg;base64,${data.image}`}
+                alt="Question Image"
+                onClose={() => setShowLightbox(false)}
+              />
+            )}
+          </>
         )}
       </div>
       <h2 className="fw-bold fs-5 mt-4 mb-3 text-center">

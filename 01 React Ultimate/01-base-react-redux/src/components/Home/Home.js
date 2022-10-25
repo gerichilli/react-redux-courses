@@ -6,6 +6,8 @@ function Home(props) {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const navigate = useNavigate();
 
+  console.log(useSelector((state) => state.user.account.access_token));
+
   function handleRegister() {
     navigate("/register");
   }

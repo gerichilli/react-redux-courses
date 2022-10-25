@@ -14,10 +14,6 @@ function ModalCreateUser({ show, setShow, setCurrentPage, fetchListUsers }) {
   const [image, setImage] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
 
-  function handleCloseModal() {
-    setShow(false);
-  }
-
   async function handleSubmit(event) {
     event.preventDefault();
 
@@ -39,7 +35,7 @@ function ModalCreateUser({ show, setShow, setCurrentPage, fetchListUsers }) {
 
     if (res && res.EC === 0) {
       toast.success("Created user successfully: " + res.EM);
-      handleClose();
+      handleCloseModal();
       setCurrentPage(1);
       await fetchListUsers(1);
     } else {
@@ -47,8 +43,8 @@ function ModalCreateUser({ show, setShow, setCurrentPage, fetchListUsers }) {
     }
   }
 
-  function handleClose() {
-    handleCloseModal();
+  function handleCloseModal() {
+    setShow(false);
     setEmail("");
     setPassword("");
     setUsername("");

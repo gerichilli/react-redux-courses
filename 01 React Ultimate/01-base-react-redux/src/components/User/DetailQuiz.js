@@ -5,6 +5,7 @@ import "./DetailQuiz.scss";
 import { getDataQuizById, postSubmitQuiz } from "../../services/apiServices";
 import Question from "./Question";
 import ModalResult from "./ModalResult";
+import RightContent from "./Content/RightContent";
 
 function DetailQuiz(props) {
   const params = useParams();
@@ -152,7 +153,9 @@ function DetailQuiz(props) {
             </div>
           </div>
         </div>
-        <div className="col-12 col-md-4">count down and answer check</div>
+        <div className="col-12 col-md-4">
+          <RightContent dataQuiz={dataQuiz} handleFinishQuiz={handleFinishQuiz} />
+        </div>
       </div>
       <ModalResult
         show={isShowModalResult}

@@ -21,13 +21,15 @@ function Sidebar({ collapsed, toggled, handleToggleSidebar }) {
       onToggle={handleToggleSidebar}
     >
       <SidebarHeader>
-        {collapsed ? (
-          <RiReactjsFill size={"1.25em"} />
-        ) : (
-          <div className="sidebar-header">
-            <RiReactjsFill size={"1.25em"} /> <span>Quizs Admin</span>
-          </div>
-        )}
+        <Link to="/admin" className="text-white text-decoration-none d-flex align-items-center">
+          {collapsed ? (
+            <RiReactjsFill size={"1.25em"} />
+          ) : (
+            <div className="d-flex align-items-center">
+              <RiReactjsFill size={"1.25em"} /> <span>Admin</span>
+            </div>
+          )}
+        </Link>
       </SidebarHeader>
       <SidebarContent>
         <Menu iconshape="circle">
@@ -42,8 +44,12 @@ function Sidebar({ collapsed, toggled, handleToggleSidebar }) {
               Quản lý Users
               <Link to="/admin/manage-users" />
             </MenuItem>
-            <MenuItem>Quản lý Bài Quizs</MenuItem>
-            <MenuItem>Quản lý Câu hỏi</MenuItem>
+            <MenuItem>
+              Quản lý Bài Quizzes <Link to="/admin/manage-quizzes" />
+            </MenuItem>
+            <MenuItem>
+              Quản lý Câu hỏi <Link to="/admin/manage-questions" />
+            </MenuItem>
           </SubMenu>
         </Menu>
       </SidebarContent>

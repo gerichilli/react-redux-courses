@@ -7,7 +7,7 @@ function TableUser({
   handleClickBtnDeleteUser,
 }) {
   return (
-    <>
+    <div className="table-responsive">
       <table className="table table-hover table-bordered">
         <thead>
           <tr>
@@ -60,7 +60,7 @@ function TableUser({
           )}
         </tbody>
       </table>
-    </>
+    </div>
   );
 }
 

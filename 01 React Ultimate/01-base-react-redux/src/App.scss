@@ -5,11 +5,15 @@ body {
   padding: 0;
   font-family: "Cabin", sans-serif;
   font-size: 18px;
+  overflow: hidden;
 }
 
 .app-container {
   .header-container {
     z-index: 10;
+    height: 90px;
+    display: flex;
+    align-items: center;
 
     .navbar-nav {
       .nav-link {
@@ -22,6 +26,11 @@ body {
     .bg-light {
       background-color: transparent !important;
     }
+  }
+
+  .main-container {
+    height: calc(100vh - 90px);
+    overflow: auto;
   }
 }
 
@@ -70,4 +79,49 @@ body {
   border-radius: 4px;
   margin-right: 16px;
   padding: 8px 16px;
+}
+
+.file-label {
+  display: flex;
+  align-items: center;
+  max-width: fit-content;
+  cursor: pointer;
+
+  & > svg {
+    margin-right: 10px;
+  }
+}
+
+.file-control {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.fw-medium {
+  font-weight: 500;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #999;
+  border-radius: 5px;
 }

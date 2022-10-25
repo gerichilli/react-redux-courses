@@ -1,10 +1,12 @@
 .admin-container {
   display: flex;
+  height: 100vh;
+  min-height: 600px;
+  overflow: hidden;
 
   .admin-sidebar {
     .pro-sidebar {
-      height: 100vh;
-      min-height: 800px;
+      height: 100%;
 
       .pro-sidebar-header {
         display: flex;
@@ -23,16 +25,19 @@
         }
       }
 
-      .pro-sidebar-inner {
-        height: 100%;
+      .pro-sidebar-content {
+        height: calc(100% - 64px * 2);
+        overflow: auto;
+      }
+
+      .pro-sidebar-footer {
+        height: 64px;
         display: flex;
-        flex-direction: column;
+        align-items: center;
+        justify-content: center;
       }
 
       .sidebar-btn-wrapper {
-        margin-top: auto;
-        padding: 20px 24px;
-
         .sidebar-btn {
           text-decoration: none;
           display: flex;
@@ -70,8 +75,7 @@
     }
 
     .admin-main {
-      height: calc(100vh - 64px);
-      min-height: calc(800px - 64px);
+      height: calc(100% - 64px);
       padding: 16px;
       overflow: auto;
     }

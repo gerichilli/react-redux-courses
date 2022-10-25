@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import "./ManageUser.scss";
 import ModalCreateUser from "./ModalCreateUser";
 import { AiOutlineUserAdd } from "react-icons/ai";
-import { getAllUsers, getUsersWithPaginate } from "../../../services/apiServices";
-import TableUser from "./TableUser";
+import { getUsersWithPaginate } from "../../../services/apiServices";
 import TableUserPaginate from "./TableUserPaginate";
 import ModalUpdateUser from "./ModalUpdateUser";
 import ModalViewUser from "./ModalViewUser";
@@ -28,7 +27,6 @@ function ManageUser() {
   }, []);
 
   async function fetchListUsersWithPaginate(page) {
-    console.log("fetchListUsersWithPaginate", page);
     const res = await getUsersWithPaginate(page, LIMIT_USERS);
 
     if (res.EC === 0) {
@@ -52,14 +50,10 @@ function ManageUser() {
     setDataDelete(user);
   }
 
-  function resetUpdateData() {
-    setDataUpdate({});
-  }
-
   return (
     <div className="manage-user-container">
       <div className="d-flex align-items-center mb-4">
-        <h1 className="user-title me-auto">Manage Users</h1>
+        <h1 className="fs-4 fw-bold me-auto">Manage Users</h1>
         <button
           className="btn btn-primary d-flex align-items-center me-lg-2"
           onClick={() => setShowModalCreateUser(true)}
@@ -96,7 +90,7 @@ function ManageUser() {
           show={showModalUpdateUser}
           setShow={setShowModalUpdateUser}
           dataUpdate={dataUpdate}
-          resetUpdateData={resetUpdateData}
+          setDataUpdate={setDataUpdate}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           fetchListUsers={fetchListUsersWithPaginate}
@@ -105,6 +99,7 @@ function ManageUser() {
           show={showModalDeleteUser}
           setShow={setShowModalDeleteUser}
           dataDelete={dataDelete}
+          setDataDelete={setDataDelete}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           fetchListUsers={fetchListUsersWithPaginate}

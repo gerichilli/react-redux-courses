@@ -19,8 +19,8 @@ function Header() {
   }
 
   return (
-    <Navbar bg="light" expand="lg" className="py-4">
-      <Container>
+    <Container>
+      <Navbar bg="light" expand="lg">
         <NavLink to="/" className="navbar-brand">
           Quiz Game
         </NavLink>
@@ -55,8 +55,8 @@ function Header() {
             )}
           </Nav>
         </Navbar.Collapse>
-      </Container>
-    </Navbar>
+      </Navbar>
+    </Container>
   );
 }
 

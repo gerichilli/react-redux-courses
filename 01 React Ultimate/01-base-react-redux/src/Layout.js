@@ -9,6 +9,8 @@ import DashBoard from "./components/Admin/Content/DashBoard";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 import DetailQuiz from "./components/User/DetailQuiz";
+import ManageQuiz from "./components/Admin/Content/Quiz/ManageQuiz";
+import Questions from "./components/Admin/Content/Questions/Questions";
 
 function NotFound() {
   return (
@@ -28,6 +30,8 @@ function Layout() {
         <Route path="/admin" element={<Admin />}>
           <Route index element={<DashBoard />} />
           <Route path="manage-users" element={<ManageUser />} />
+          <Route path="manage-quizzes" element={<ManageQuiz />} />
+          <Route path="manage-questions" element={<Questions />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

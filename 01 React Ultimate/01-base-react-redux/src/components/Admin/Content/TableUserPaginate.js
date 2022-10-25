@@ -15,11 +15,10 @@ function TableUserPaginate({
   async function handlePageClick(event) {
     setCurrentPage(event.selected + 1);
     await fetchListUsers(event.selected + 1);
-    console.log(`User requested page number ${event.selected + 1}`);
   }
 
   return (
-    <>
+    <div className="table-responsive">
       <table className="table table-hover table-bordered">
         <thead>
           <tr>
@@ -95,7 +94,7 @@ function TableUserPaginate({
           forcePage={currentPage - 1}
         />
       </div>
-    </>
+    </div>
   );
 }
 

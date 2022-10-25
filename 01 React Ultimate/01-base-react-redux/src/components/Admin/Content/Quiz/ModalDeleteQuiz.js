@@ -2,32 +2,24 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import _ from "lodash";
 import { toast } from "react-toastify";
-import { deleteUser } from "../../../services/apiServices";
+import { deleteQuiz } from "../../../../services/apiServices";
 
-function ModalDeleteUser({
-  show,
-  setShow,
-  dataDelete,
-  setDataDelete,
-  setCurrentPage,
-  fetchListUsers,
-}) {
-  if (_.isEmpty(dataDelete)) return null;
+function ModalDeleteQuiz({ show, setShow, dataDeleteQuiz, setDataDeleteQuiz, fecthAllQuiz }) {
+  if (_.isEmpty(dataDeleteQuiz)) return null;
 
-  const { id, email } = dataDelete;
+  const { id } = dataDeleteQuiz;
 
   function handleCloseModal() {
     setShow(false);
-    setDataDelete({});
+    setDataDeleteQuiz({});
   }
 
   async function handleConfirmDelete() {
-    const data = await deleteUser(id);
+    const data = await deleteQuiz(id);
     if (data && data.EC === 0) {
       toast.success(data.EM);
       handleCloseModal();
-      setCurrentPage(1);
-      await fetchListUsers(1);
+      await fecthAllQuiz();
     } else {
       toast.error(data.EM);
     }
@@ -35,10 +27,10 @@ function ModalDeleteUser({
   return (
     <Modal show={show} onHide={handleCloseModal} backdrop="static">
       <Modal.Header closeButton>
-        <Modal.Title>Confirm Delete User?</Modal.Title>
+        <Modal.Title>Confirm Delete Quiz?</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        Are you sure to delete this user: <span className="text-danger">{email}</span>?
+        Are you sure to delete this Quiz: <span className="text-danger">id={id}</span>?
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleCloseModal}>
@@ -52,4 +44,4 @@ function ModalDeleteUser({
   );
 }
 
-export default ModalDeleteUser;
+export default ModalDeleteQuiz;
