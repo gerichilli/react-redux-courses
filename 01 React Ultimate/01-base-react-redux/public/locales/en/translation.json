@@ -1,0 +1,19 @@
+{
+    "homepage": {
+        "title": "There's a better way to ask",
+        "description":
+          "You don't want to make a boring form. And your audience won't answer one. Create a typeform instead—and make everyone happy.",
+        "ctaButton": {
+          "register": "Get started - it's free",
+          "users": "Do quiz now"
+        }
+    },
+    "login": {
+        "title": "Hello, who's this?",
+        "email": "Email",
+        "password": "Password",
+        "forgotPassword": "Forgot password?",
+        "loginButton": "Log in to Quiz"
+    }
+}
+  

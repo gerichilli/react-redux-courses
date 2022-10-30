@@ -2,8 +2,9 @@ import { useState } from "react";
 import _ from "lodash";
 import "./DetailQuiz.scss";
 import { Lightbox } from "react-modal-image";
+import { BsCheck, BsX } from "react-icons/bs";
 
-function Question({ index, data, handleCheckbox }) {
+function Question({ index, data, handleCheckbox, isShowAnswer, isQuizSubmitted }) {
   const [showLightbox, setShowLightbox] = useState(false);
 
   if (_.isEmpty(data)) return null;
@@ -48,8 +49,16 @@ function Question({ index, data, handleCheckbox }) {
                 name={`question-${data.questionId}`}
                 onChange={(e) => handleClickCheckbox(e, answer.id)}
                 checked={answer.isSelected}
+                disabled={isQuizSubmitted}
               />
-              <p className="form-check-label mb-0">{answer.description}</p>
+              <span className="form-check-label mb-0">{answer.description} </span>
+              {isQuizSubmitted &&
+                isShowAnswer &&
+                (answer.isCorrect ? (
+                  <BsCheck className="text-success" size="1.25em" />
+                ) : (
+                  <BsX className="text-danger" size="1.25em" />
+                ))}
             </label>
           ))}
       </div>

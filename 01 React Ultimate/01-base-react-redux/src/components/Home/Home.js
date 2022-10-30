@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useTranslation, Trans } from "react-i18next";
 import videoHomepage from "../../assets/video-homepage.mp4";
 
 function Home(props) {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const navigate = useNavigate();
-
-  console.log(useSelector((state) => state.user.account.access_token));
+  const { t } = useTranslation();
 
   function handleRegister() {
     navigate("/register");
@@ -23,18 +23,15 @@ function Home(props) {
       </video>
       <div className="container">
         <div className="homepage-content">
-          <h1>There's a better way to ask</h1>
-          <p>
-            You don't want to make a boring form. And your audience won't answer one. Create a
-            typeform instead—and make everyone happy.
-          </p>
+          <h1>{t("homepage.title")}</h1>
+          <p>{t("homepage.description")}</p>
           {!isAuthenticated ? (
             <button className="btn btn-mi-primary" onClick={handleRegister}>
-              Get started - it's free
+              {t("homepage.ctaButton.register")}
             </button>
           ) : (
             <button className="btn btn-mi-primary" onClick={handleStartQuiz}>
-              Do quiz now
+              {t("homepage.ctaButton.users")}
             </button>
           )}
         </div>

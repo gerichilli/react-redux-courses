@@ -206,7 +206,8 @@ function QuizQA() {
     }
   }
 
-  async function handleSubmitQuestionsForQuiz() {
+  async function handleSubmitQuestionsForQuiz(event) {
+    event.preventDefault();
     let cloneQuestions = _.cloneDeep(questions);
     // Validate
     // 1. Check if quiz is selected
@@ -272,7 +273,7 @@ function QuizQA() {
   }
 
   return (
-    <div>
+    <form onSubmit={handleSubmitQuestionsForQuiz}>
       <div className="col-xl-6 mb-4">
         <label className="fs-6 fw-bold">Select Quiz:</label>
         <Select options={listQuiz} defaultValue={selectedQuiz} onChange={setSelectedQuiz} />
@@ -312,6 +313,7 @@ function QuizQA() {
                         </label>
                         <button
                           className="btn btn-transparent px-0 border-0"
+                          type="button"
                           onClick={() => handleShowLightBox(question.imageFile)}
                         >
                           {question.imageName
@@ -330,6 +332,7 @@ function QuizQA() {
                   <div className="col">
                     <button
                       className="btn btn-outline-primary px-2 me-2"
+                      type="button"
                       onClick={() => handleAddRemoveQuestion("ADD", "")}
                     >
                       <FiPlus aria-label="Add" size="1.25em" />
@@ -337,6 +340,7 @@ function QuizQA() {
                     {questions.length > 1 && (
                       <button
                         className="btn btn-outline-warning px-2"
+                        type="button"
                         onClick={() => handleAddRemoveQuestion("REMOVE", question.id)}
                       >
                         <FiMinus aria-label="Remove" size="1.25em" />
@@ -384,6 +388,7 @@ function QuizQA() {
                         <div className="col">
                           <button
                             className="btn px-0 border-0 text-primary me-2"
+                            type="button"
                             onClick={() => handleAddRemoveAnswer("ADD", question.id)}
                           >
                             <AiFillPlusCircle aria-label="Add" size="2em" />
@@ -408,7 +413,7 @@ function QuizQA() {
       </div>
       <div className="d-flex justify-content-center">
         {questions && questions.length > 0 && (
-          <button className="btn btn-primary btn-lg" onClick={handleSubmitQuestionsForQuiz}>
+          <button className="btn btn-primary btn-lg" type="submit">
             Submit questions
           </button>
         )}
@@ -421,7 +426,7 @@ function QuizQA() {
           onClose={handleCloseLightbox}
         />
       )}
-    </div>
+    </form>
   );
 }
 

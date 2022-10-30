@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { doLogin } from "../../redux/action/userAction";
 import { FaSpinner } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 function Login(props) {
   const [email, setEmail] = useState("");
@@ -14,6 +15,8 @@ function Login(props) {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const { t } = useTranslation();
 
   async function handleLogin(e) {
     e.preventDefault();
@@ -44,11 +47,11 @@ function Login(props) {
   return (
     <div className="auth-container">
       <h1 className="text-center">Quiz</h1>
-      <p className="text-center fs-5">Hello, who's this?</p>
+      <p className="text-center fs-5">{t("login.title")}</p>
       <form className="mt-4" onSubmit={handleLogin}>
         <div className="form-group mb-2">
           <label htmlFor="exampleInputEmail1" className="fw-medium">
-            Email
+            {t("login.email")}
           </label>
           <input
             type="email"
@@ -62,7 +65,7 @@ function Login(props) {
         </div>
         <div className="form-group mb-4">
           <label htmlFor="exampleInputPassword1" className="fw-medium">
-            Password
+            {t("login.password")}
           </label>
           <input
             type="password"
@@ -72,11 +75,11 @@ function Login(props) {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <p className="text-secondary fs-6 mt-1">Forgot password?</p>
+          <p className="text-secondary fs-6 mt-1">{t("login.forgotPassword")}</p>
         </div>
         <button type="submit" className="btn btn-primary w-100" disabled={isLoading}>
           {isLoading && <FaSpinner className="loading me-2" />}
-          <span>Log in to Quiz</span>
+          <span>{t("login.loginButton")}</span>
         </button>
         <div className="text-center mt-4">
           <span className="fs-6 me-2 text-secondary">Don't have an account yet?</span>

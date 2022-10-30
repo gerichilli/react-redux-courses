@@ -7,6 +7,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "nprogress/nprogress.css";
 import { persistor, store } from "./redux/store";
+import "./utils/i18n";
 import Layout from "./Layout";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

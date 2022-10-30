@@ -1,0 +1,17 @@
+{
+    "homepage": {
+        "title": "Có rất nhiều cách để khảo sát",
+        "description": "Bạn không muốn tạo ra một hình thức nhàm chán. Và khán giả của bạn sẽ không trả lời. Thay vào đó, hãy tạo một dạng chữ — và làm cho mọi người hài lòng.",
+        "ctaButton": {
+          "register": "Bắt đầu - hoàn toàn miễn phí",
+          "users": "Làm bài kiểm tra ngay bây giờ"
+        }
+    },
+    "login": {
+        "title": "Xin chào, bạn là ai?",
+        "email": "Email",
+        "password": "Mật khẩu",
+        "forgotPassword": "Có phải bạn quên mật khẩu?",
+        "loginButton": "Đăng nhập"
+    }
+}

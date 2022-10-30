@@ -34,6 +34,30 @@ instance.interceptors.response.use(
   },
   function (error) {
     NProgress.done();
+
+    const email = store?.getState()?.user?.account?.email;
+    const refresh_token = store?.getState()?.user?.account?.refresh_token;
+    // Token expired
+    if (error?.response?.data && error.response.data.EC === -999) {
+      const res = axios.post("api/v1/refresh-token", { email, refresh_token });
+
+      if (res && res.EC === 0) {
+        store.dispatch({
+          type: "FETCH_USER_LOGIN_SUCCESS",
+          payload: {
+            access_token: res?.DT?.access_token,
+            refresh_token: res?.DT?.refresh_token,
+            username: store?.getState()?.user?.account?.username,
+            image: store?.getState()?.user?.account?.image,
+            role: store?.getState()?.user?.account?.role,
+            email: store?.getState()?.user?.account?.email,
+          },
+        });
+      } else {
+        window.location.href = "/login";
+      }
+    }
+
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
     return error && error.response && error.response.data

@@ -41,6 +41,10 @@ export async function postRegister(email, username, password) {
   return axios.post("api/v1/register", { email, username, password });
 }
 
+export async function postLogout(email, refresh_token) {
+  return axios.post("api/v1/logout", { email, refresh_token });
+}
+
 export async function getQuizByUser() {
   return axios.get(`api/v1/quiz-by-participant`);
 }
@@ -109,4 +113,24 @@ export async function postAssignQuizToUser(quizId, userId) {
 
 export async function postUpsertQA(data) {
   return axios.post("api/v1/quiz-upsert-qa", { ...data });
+}
+
+export async function getOverview() {
+  return axios.get("api/v1/overview");
+}
+
+export async function postUpdateProfile(username, image) {
+  const data = new FormData();
+  data.append("username", username);
+  data.append("userImage", image);
+
+  return axios.post("api/v1/profile", data);
+}
+
+export async function postChangePassword(current_password, new_password) {
+  return axios.post("api/v1/change-password", { current_password, new_password });
+}
+
+export async function getHistory() {
+  return axios.get("api/v1/history");
 }

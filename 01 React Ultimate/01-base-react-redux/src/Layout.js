@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import App from "./App";
@@ -11,6 +12,7 @@ import Register from "./components/Auth/Register";
 import DetailQuiz from "./components/User/DetailQuiz";
 import ManageQuiz from "./components/Admin/Content/Quiz/ManageQuiz";
 import Questions from "./components/Admin/Content/Questions/Questions";
+import PrivateRoute from "./routes/PrivateRoute";
 
 function NotFound() {
   return (
@@ -20,21 +22,26 @@ function NotFound() {
 
 function Layout() {
   return (
-    <>
+    <Suspense fallback={<div>Loading...</div>}>
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
-          <Route path="/users" element={<User />} />
+          <Route path="/users" element={<PrivateRoute />}>
+            <Route path="" element={<User />} />
+          </Route>
           <Route path="/quiz/:id" element={<DetailQuiz />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Route>
-        <Route path="/admin" element={<Admin />}>
-          <Route index element={<DashBoard />} />
-          <Route path="manage-users" element={<ManageUser />} />
-          <Route path="manage-quizzes" element={<ManageQuiz />} />
-          <Route path="manage-questions" element={<Questions />} />
+        <Route path="/admin" element={<PrivateRoute roleAccept="admin" />}>
+          <Route path="" element={<Admin />}>
+            <Route index element={<DashBoard />} />
+            <Route path="manage-users" element={<ManageUser />} />
+            <Route path="manage-quizzes" element={<ManageQuiz />} />
+            <Route path="manage-questions" element={<Questions />} />
+          </Route>
         </Route>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
       <ToastContainer
@@ -49,7 +56,7 @@ function Layout() {
         pauseOnHover
         theme="light"
       />
-    </>
+    </Suspense>
   );
 }
 

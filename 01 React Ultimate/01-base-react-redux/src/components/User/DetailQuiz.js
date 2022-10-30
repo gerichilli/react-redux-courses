@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import _ from "lodash";
+import Breadcrumb from "react-bootstrap/Breadcrumb";
 import "./DetailQuiz.scss";
 import { getDataQuizById, postSubmitQuiz } from "../../services/apiServices";
 import Question from "./Question";
@@ -14,13 +15,36 @@ function DetailQuiz(props) {
   const id = params.id;
 
   const [dataQuiz, setDataQuiz] = useState([]);
+  const [dataQuizResult, setDataQuizResult] = useState([]);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [isShowModalResult, setIsShowModalResult] = useState(false);
   const [dataModalResult, setDataModalResult] = useState({});
+  const [duration, setDuration] = useState(300);
+  const [isQuizSubmitted, setIsQuizSubmitted] = useState(false);
+  const [isShowAnswer, setIsShowAnswer] = useState(false);
 
   useEffect(() => {
     getQuizData();
   }, [id]);
+
+  useEffect(() => {
+    if (isQuizSubmitted) {
+      return;
+    }
+
+    if (duration === 0) {
+      handleFinishQuiz();
+      return;
+    }
+
+    const timer = setInterval(() => {
+      setDuration(duration - 1);
+    }, 1000);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, [duration, isQuizSubmitted]);
 
   async function getQuizData() {
     const res = await getDataQuizById(id);
@@ -43,6 +67,8 @@ function DetailQuiz(props) {
             item.answers.isSelected = false;
             answers.push(item.answers);
           });
+
+          answers = _.orderBy(answers, ["id"], ["asc"]);
 
           return { questionId: key, answers, questionDescription, image };
         })
@@ -83,6 +109,16 @@ function DetailQuiz(props) {
     }
   }
 
+  function handleQuestionClick(index) {
+    setQuestionIndex(index);
+  }
+
+  function handleShowAnswer() {
+    setIsShowAnswer(true);
+    setIsShowModalResult(false);
+    setDataQuiz(dataQuizResult);
+  }
+
   async function handleFinishQuiz() {
     let payload = {
       quizId: +id,
@@ -108,6 +144,35 @@ function DetailQuiz(props) {
       if (res && res.EC === 0) {
         setIsShowModalResult(true);
         setDataModalResult(res.DT);
+        setIsQuizSubmitted(true); // Prevent user change answer and submit quiz again
+        setDuration(0);
+
+        const quizDataResult = res.DT.quizData;
+        const dataClone = _.cloneDeep(dataQuiz);
+
+        dataClone.forEach((item, indexQ) => {
+          let questionId = +item.questionId;
+          // Defind correct and incorrect question
+          let questionResult = quizDataResult.find((r) => r.questionId === questionId);
+
+          if (questionResult) {
+            dataClone[indexQ].isCorrect = questionResult.isCorrect;
+          }
+
+          // Defind correct and incorrect answer
+          let systemAnswers = questionResult.systemAnswers;
+
+          item.answers.forEach((answer, indexA) => {
+            let answerId = +answer.id;
+            let isTrueAnswer = systemAnswers.findIndex((a) => a.id === answerId) > -1;
+
+            if (isTrueAnswer) {
+              dataClone[indexQ].answers[indexA].isCorrect = true;
+            }
+          });
+        });
+
+        setDataQuizResult(dataClone);
       } else {
         console.log(res.EM);
       }
@@ -119,6 +184,11 @@ function DetailQuiz(props) {
 
   return (
     <div className="container py-4">
+      <Breadcrumb>
+        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+        <Breadcrumb.Item href="/users">Users</Breadcrumb.Item>
+        <Breadcrumb.Item active>Quiz {id}</Breadcrumb.Item>
+      </Breadcrumb>
       <div className="row gx-4">
         <div className="col-12 col-md-8">
           <h1 className="fw-bold fs-3 mb-4 text-primary">
@@ -130,6 +200,8 @@ function DetailQuiz(props) {
                 index={questionIndex}
                 data={dataQuiz.length && dataQuiz.length > 0 ? dataQuiz[questionIndex] : null}
                 handleCheckbox={handleCheckbox}
+                isQuizSubmitted={isQuizSubmitted}
+                isShowAnswer={isShowAnswer}
               />
             </div>
             <div className="d-flex justify-content-center align-items-center mt-4">
@@ -147,20 +219,33 @@ function DetailQuiz(props) {
               >
                 Next
               </button>
-              <button className="btn btn-warning" onClick={handleFinishQuiz}>
+              <button
+                className="btn btn-warning"
+                onClick={handleFinishQuiz}
+                disabled={isQuizSubmitted}
+              >
                 Finish
               </button>
             </div>
           </div>
         </div>
         <div className="col-12 col-md-4">
-          <RightContent dataQuiz={dataQuiz} handleFinishQuiz={handleFinishQuiz} />
+          <RightContent
+            duration={duration}
+            dataQuiz={dataQuiz}
+            isQuizSubmitted={isQuizSubmitted}
+            isShowAnswer={isShowAnswer}
+            handleFinishQuiz={handleFinishQuiz}
+            currentIndex={questionIndex}
+            setCurrentIndex={handleQuestionClick}
+          />
         </div>
       </div>
       <ModalResult
         show={isShowModalResult}
         setShow={setIsShowModalResult}
         dataModalResult={dataModalResult}
+        handleShowAnswer={handleShowAnswer}
       />
     </div>
   );

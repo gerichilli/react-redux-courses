@@ -1,7 +1,7 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-function ModalResult({ show, setShow, dataModalResult }) {
+function ModalResult({ show, setShow, dataModalResult, handleShowAnswer }) {
   function handleClose() {
     setShow(false);
   }
@@ -20,7 +20,7 @@ function ModalResult({ show, setShow, dataModalResult }) {
         </p>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="primary" onClick={handleClose}>
+        <Button variant="primary" onClick={handleShowAnswer}>
           Show answers
         </Button>
         <Button variant="secondary" onClick={handleClose}>
